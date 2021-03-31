@@ -13,6 +13,13 @@ if ($_SERVER["REQUEST_METHOD"]=="POST") {
 	$replaceText=$_POST["replaceText"];
 
 	$replacedText=preg_replace($pattern, $replaceText, $text);
+    $contains = preg_match('/(.*)($text)(.*)/', $pattern);
+    $phone = preg_match('/(\+998\-)[0-9]{2}(\-)[0-9]{7}/', $text);
+    $email = preg_match('/(.*)(@)(.*)/', $text);
+    $whitespace = preg_replace('/\s+/', '', $text);
+    $non_numeric= preg_replace("/[^0-9,.]/", "", $text);
+    $extract = preg_replace('/\s+/', ' ', trim($text));
+    $ext_text = preg_match('#\[(.*?)\]#', $text, $replacedTexts);
 
 	if(preg_match($pattern, $text)) {
 						$match="Match!";
